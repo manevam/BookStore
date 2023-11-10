@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<header>
+   <h1 th:text="'Book title: ' + ${bookObj.getTitle()}"></h1>
+</header>
+<section>
+    <h2 th:text="'Genre: ' + ${bookObj.getGenre()}"></h2>
+    <h2 th:text="'Year: ' + ${bookObj.getYear()}"></h2>
+    <h2 th:text="'Authors: '"></h2>
+<!--    <h2 th:text="${bookObj.getAuthors().size()}"></h2>-->
+    <ul th:each="author:${bookObj.getAuthors()}">
+        <li><span th:text="${author.getName()} + ' ' + ${author.getSurname()}"></span></li>
+    </ul>
+</section>
+</body>
+</html>
