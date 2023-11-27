@@ -21,7 +21,6 @@ public class BookServiceImpl implements BookService {
         this.authorRepository = authorRepository;
     }
 
-
     @Override
     public List<Book> listBooks() {
         return bookRepository.findAll();

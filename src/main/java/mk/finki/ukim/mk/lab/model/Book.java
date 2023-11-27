@@ -15,14 +15,18 @@ public class Book  implements Serializable {
     int year;
     @Getter
     List<Author> authors = new ArrayList<>();
+    Long id;
+    private BookStore bookStore;
 
     public Book(String isbn, String title, String genre, int year) {
         this.isbn = isbn;
         this.title = title;
         this.genre = genre;
         this.year = year;
-
+        this.id = (long) (Math.random() * 1000);
     }
+
+
 
     public void addAuthorToBook(Author author){
         authors.add(author);
