@@ -60,7 +60,7 @@ public class АuthorServlet  extends HttpServlet {
             String isbn = (String) req.getSession().getAttribute("isbn");
             String authorId = req.getParameter("authorId");
 
-            Author a = bookService.addAuthorToBook(Long.valueOf(authorId), isbn);
+            //Author a = bookService.addAuthorToBook(Long.valueOf(authorId), isbn);
             req.getSession().setAttribute("authorId", authorId);
             resp.sendRedirect("/bookDetails");
         }

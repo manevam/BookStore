@@ -34,13 +34,13 @@
 <section>
   <h2>Select author:</h2>
 
-  <form th:method="POST" th:action="@{/multiple/author}">
+  <form th:method="POST" th:action="('/multipleAuthors/add/'+ ${book.getIsbn()} )">
     <ul th:each="author:${authors}">
       <li><input type="checkbox" th:name="authorId" th:value="${author.getId()}"/>
         <span th:text="${author.getName()} + ' ' + ${author.getSurname()}"></span>
       </li>
     </ul>
-    <input type='submit'  th:name="button" th:value="'Add author'">
+    <input type='submit'  th:name="button" th:value="'Add authors'">
   </form>
 
 </section>
@@ -49,7 +49,7 @@
     <tr>
       <!-- change to show selected book isbn -->
       <td><b>Book Isbn</b></td>
-      <td th:text="${session.isbn}"></td>
+      <td th:text="${book.getIsbn()}"></td>
     </tr>
   </table>
 </aside>

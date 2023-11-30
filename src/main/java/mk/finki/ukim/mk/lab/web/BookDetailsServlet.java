@@ -35,7 +35,7 @@ public class BookDetailsServlet extends HttpServlet {
         WebContext context =  new WebContext(webExchange);
 
         String isbn = (String) req.getSession().getAttribute("isbn");
-        context.setVariable("bookObj", bookService.findBookByIsbn(isbn));
+        //context.setVariable("bookObj", bookService.findBookByIsbn(isbn));
 
         String authorId = (String)req.getSession().getAttribute("authorId");
         context.setVariable("authorObj", authorService.findById(Long.getLong(authorId)));

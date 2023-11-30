@@ -34,7 +34,7 @@
 <section>
     <h2>Select author:</h2>
 
-    <form th:method="POST" th:action="@{/author}">
+    <form th:method="POST" th:action="('/authors/addAuthor/'+ ${book.getIsbn()} )">
         <ul th:each="author:${authors}">
             <li><input type="radio" th:name="authorId" th:value="${author.getId()}"/>
                 <span th:text="${author.getName()} + ' ' + ${author.getSurname()}"></span>
@@ -42,8 +42,11 @@
         </ul>
         <input type='submit'  th:name="button" th:value="'Add author'">
         <br>
-        <input type="submit" th:name="button" value="Add Multiple Authors">
     </form>
+
+    <th:block>
+        <a th:href="('/multipleAuthors/'+ ${book.getIsbn()} )" class="btn btn-primary">Add Multiple Authors</a>
+    </th:block>
 
 </section>
 <aside>
@@ -51,7 +54,7 @@
         <tr>
             <!-- change to show selected book isbn -->
             <td><b>Book Isbn</b></td>
-            <td th:text="${session.isbn}"></td>
+            <td th:name="selectedBook" th:text="${book.getIsbn()}"></td>
         </tr>
     </table>
 </aside>

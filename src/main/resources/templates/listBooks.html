@@ -19,14 +19,40 @@
     <!-- Display radio buttons for each book,
             the value should be the isbn
             and the displayed text should be Title: <bookTitle>, Genre:<genre>, Year: <year> -->
-    <form th:method="POST" th:action="@{/listBooks}">
-        <ul th:each="book:${books}">
-            <li><input type="radio" th:name="bookIsbn" th:value="${book.getIsbn()}"/>
-                <span th:text="'Title: '+ ${book.getTitle()} + ' Genre: ' + ${book.getGenre()} + ' Year: ' + ${book.getYear()}"></span>
+<!--    <form th:method="POST" th:action="@{/listBooks}">-->
+<!--        <ul th:each="book:${books}">-->
+<!--            <li><input type="radio" th:name="bookIsbn" th:value="${book.getIsbn()}"/>-->
+<!--                <span th:text="'Title: '+ ${book.getTitle()} + ' Genre: '
+                        + ${book.getGenre()} + ' Year: ' + ${book.getYear()}"></span>-->
+<!--            </li>-->
+<!--        </ul>-->
+<!--    <input type='submit' th:value='Submit'>-->
+<!--    </form>-->
+
+    <form th:method="get" th:action="@{/authors}">
+        <ul th:each="book: ${books}">
+            <li>
+                <input type="radio" th:value="${book.getIsbn()}" th:name="selectedBook">
+                <span th:text="'Title: '+ ${book.getTitle()} + ' Genre: '
+                        + ${book.getGenre()} + ' Year: ' + ${book.getYear()} + ' BookStore: ' + ${book.getBookStore().getName()}"></span>
+                <th:block>
+                    <a th:href="@{'/books/delete/{isbn}' (isbn=${book.getIsbn()}) }">Delete</a>
+                </th:block>
+                <th:block >
+                    <a th:href="@{'/books/edit/{isbn}' (isbn=${book.getIsbn()}) }">Edit</a>
+                </th:block>
             </li>
         </ul>
-    <input type='submit' th:value='Submit'>
+
+        <br>
+        <input type="submit" value="Submit">
     </form>
+    <br>
+    <th:block>
+        <a href="/books/add" class="btn btn-primary">Add Book</a>
+    </th:block>
+
+
 </main>
 </body>
 </html>

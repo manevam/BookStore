@@ -13,7 +13,7 @@
     <h2 th:text="'Year: ' + ${bookObj.getYear()}"></h2>
     <h2 th:text="'Authors: '"></h2>
 <!--    <h2 th:text="${bookObj.getAuthors().size()}"></h2>-->
-    <ul th:each="author:${bookObj.getAuthors()}">
+    <ul th:each="author :${authors}">
         <li><span th:text="${author.getName()} + ' ' + ${author.getSurname()}"></span></li>
     </ul>
 </section>

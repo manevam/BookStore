@@ -1,37 +1,54 @@
 package mk.finki.ukim.mk.lab.repository;
 
-import jakarta.annotation.Resource;
-import jakarta.servlet.ServletException;
 import mk.finki.ukim.mk.lab.model.Author;
 import mk.finki.ukim.mk.lab.model.Book;
+import mk.finki.ukim.mk.lab.model.BookStore;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+
+import static mk.finki.ukim.mk.lab.bootstraph.DataHolder.books;
 
 @Repository
 public class BookRepository {
 
-    List<Book> books;
-
-    public BookRepository() {
-        books = new ArrayList<>(5);
-        books.add(new Book("1", "Murder in Midsommar", "mystery", 1999));
-        books.add(new Book("2", "The Picture of Dorian Grey", "fantasy", 1899));
-        books.add(new Book("3", "Candide", "philosophy", 1789));
-    }
-
     public List<Book> findAll(){
         return books;
     }
-    public Book findByIsbn(String isbn){
-        Book book = books.stream().filter(b -> b.getIsbn().equals(isbn)).findFirst().orElse(null);
-        return book;
+
+    public Optional<Book> findByIsbn(String isbn){
+        return books.stream().filter(b -> b.getIsbn().equals(isbn)).findFirst();
     }
-    public Author addAuthorToBook(Author author, Book book){
-        Book neededBook = findByIsbn(book.getIsbn());
-        neededBook.addAuthorToBook(author);
-        //zoshto e potrebno nekakov return?
-        return author;
+    public void addAuthorToBook(Author author, Book book) {
+        Optional<Book> b = findByIsbn(book.getIsbn());
+        b.ifPresent(value -> value.getAuthors().add(author));
     }
+
+    public void deleteByIsbn(String isbn){
+        books.removeIf(b ->b.getIsbn().equals(isbn));
+    }
+
+    public Optional<Book> editBook(String isbn, String title, String genre, Integer year, BookStore bookStore) {
+        if( bookStore == null)
+            throw new IllegalArgumentException();
+
+        Optional<Book> b = findByIsbn(isbn);
+        if(b.isPresent()){
+            b.get().setTitle(title);
+            b.get().setGenre(genre);
+            b.get().setYear(year);
+            b.get().setBookStore(bookStore);
+        }
+        return b;
+    }
+
+    public Optional<Book> saveBook(String title, String genre, Integer year, BookStore bookStore){
+        if( bookStore == null)
+            throw new IllegalArgumentException();
+        Book book = new Book(title,genre,year, bookStore);
+        books.add(book);
+        return Optional.of(book);
+    }
+
 }

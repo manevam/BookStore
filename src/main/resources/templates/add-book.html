@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-md-5">
+            <form th:method="post" th:action="(${book!=null} ? '/books/editBook/' + ${book.getId()} : '/books/save')">
+                <input type="hidden" th:value="(${book}!=null ? ${book.getIsbn()} : '')">
+                <div class="form-group">
+                    <label for="title">Title</label>
+                    <input th:value="(${book}!=null ? ${book.getTitle()} : '')"
+                           class="form-control"
+                           type="text"
+                           id="title"
+                           name="title"
+                           required
+                           placeholder="Enter Book Title">
+                </div>
+                <div class="form-group">
+                    <label for="summary">Genre</label>
+                    <input th:value="(${book}!=null ? ${book.getGenre()} : '')"
+                           class="form-control"
+                           type="text"
+                           id="summary"
+                           name="genre"
+                           required
+                           placeholder="Enter Book Genre">
+                </div>
+                <div class="form-group">
+                    <label for="rating">Year</label>
+                    <input th:value="(${book}!=null ? ${book.getYear()} : '')"
+                           th:readonly="${book}!=null"
+                           class="form-control"
+                           type="text"
+                           id="rating"
+                           name="year"
+                           required
+                           placeholder="Enter Book Year">
+                </div>
+                <div class="form-group">
+                    <label>Book Store</label>
+                    <select name="bookStoreId" class="form-control">
+                        <option
+                                th:if="(${book}==null)"
+                                th:each="bookStore : ${bookStores}"
+                                th:text="${bookStore.getName()}"
+                                th:value="${bookStore.getId()}">
+                        </option>
+                        <option
+                                th:if="(${book}!=null)"
+                                th:selected="${book.getBookStore()!=null && book.getBookStore().getId() == bookStore.getId()}"
+                                th:each="bookStore : ${bookStores}"
+                                th:text="${bookStore.getName()}"
+                                th:value="${bookStore.getId()}">
+                            ></option>
+                    </select>
+                </div>
+
+                <div>
+                    <button id="submit" class="btn btn-primary" type="submit">Submit</button>
+                    <a href="/books" type="button" class="btn btn-primary">Back</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

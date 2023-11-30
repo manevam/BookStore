@@ -56,7 +56,7 @@ public class MultipleAuthorServlet extends HttpServlet {
         String isbn = (String) req.getSession().getAttribute("isbn");
         //List<String> authorId = req.getParameter("authorId");
         List<String> authorsSelected = List.of(req.getParameterValues("authorId"));
-        bookService.addMultipleAuthorsToBook(authorsSelected,isbn);
+        //bookService.addMultipleAuthorsToBook(authorsSelected,isbn);
 
         req.getSession().setAttribute("authorsAdded", authorsSelected);
         resp.sendRedirect("/bookDetails");
