@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<header>
+    <h1>Book Stores</h1>
+</header>
+<section>
+    <ul th:each="bookStore:${bookStores}">
+        <li>
+            <input type="radio" th:name="chosenBookStore" th:value="${bookStore.getId()}"/>
+            <span th:text="${bookStore.getName()}"></span>
+            <th:block >
+                <a th:href="@{'/bookStores/details/{id}' (id=${bookStore.getId()}) }">Details</a>
+            </th:block>
+        </li>
+    </ul>
+
+</section>
+</body>
+</html>

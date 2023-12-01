@@ -6,6 +6,7 @@ import mk.finki.ukim.mk.lab.service.BookStoreService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class BookStoreServiceImpl implements BookStoreService {
@@ -16,8 +17,8 @@ public class BookStoreServiceImpl implements BookStoreService {
     }
 
     @Override
-    public BookStore findBookStoreById(Long id) {
-        return DataHolder.bookStores.stream().filter(b -> b.getId().equals(id)).findFirst().orElse(null);
+    public Optional<BookStore> findBookStoreById(Long id) {
+        return DataHolder.bookStores.stream().filter(b -> b.getId().equals(id)).findFirst();
     }
 
 }
